@@ -415,9 +415,9 @@ const webProjects = [
   },
   {
     tag: 'Live Web App · 2025',
-    client: 'Petro Z Limited',
-    title: 'eTrac — Fuel Tracking System',
-    desc: 'Live web application for tracking fuel transactions and movements across sites. Full backend, dashboard and reporting. Deployed on Railway.',
+    client: 'ETrac Zambia',
+    title: 'eTrac — Device Protection Platform',
+    desc: 'Register, verify and protect your devices — phones, laptops and more. ETrac helps users secure what matters most and track ownership across Zambia.',
     tools: ['React', 'Django', 'PostgreSQL'],
     link: 'https://etrac-zambia.up.railway.app/',
     preview: '/images/preview_etrac.png',
