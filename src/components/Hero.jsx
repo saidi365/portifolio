@@ -50,10 +50,11 @@ export default function Hero() {
         margin: '0 auto',
         padding: '80px 48px',
         display: 'grid',
-        gridTemplateColumns: '1fr 420px',
-        gap: 80,
+        gridTemplateColumns: '1fr 400px',
+        gap: 64,
         alignItems: 'center',
         width: '100%',
+        boxSizing: 'border-box',
       }} className="hero-grid">
 
         {/* LEFT */}
@@ -174,24 +175,6 @@ export default function Hero() {
             </a>
           </motion.div>
 
-          {/* Clients */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-          >
-            <p style={{ fontSize: '0.72rem', color: '#bbb', letterSpacing: '0.1em', textTransform: 'uppercase', fontFamily: 'Space Grotesk', marginBottom: 12 }}>
-              Clients
-            </p>
-            <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-              {['TECNO', 'MTN', 'Mukuru', 'Infinix', 'ZICB', 'ERB'].map(b => (
-                <span key={b} style={{
-                  fontSize: '0.78rem', fontWeight: 700, color: '#bbb',
-                  fontFamily: 'Space Grotesk', letterSpacing: '0.05em',
-                }}>{b}</span>
-              ))}
-            </div>
-          </motion.div>
         </div>
 
         {/* RIGHT: Sliding Photo */}
@@ -281,8 +264,23 @@ export default function Hero() {
           100% { transform: translate(-50%,-50%) scale(2.2); opacity: 0; }
         }
         @media (max-width: 860px) {
-          .hero-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
-          .hero-grid > div:last-child { max-width: 360px; }
+          .hero-grid {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+            padding: 48px 24px !important;
+          }
+          .hero-grid > div:last-child {
+            max-width: 100%;
+            order: -1;
+          }
+          .hero-grid > div:last-child > div {
+            aspect-ratio: 4/3 !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .hero-grid {
+            padding: 32px 20px !important;
+          }
         }
       `}</style>
     </section>

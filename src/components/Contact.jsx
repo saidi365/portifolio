@@ -1,14 +1,33 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
+const FORMSPREE_ID = 'YOUR_FORM_ID' // replace with your Formspree form ID
+
 export default function Contact() {
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
 
-  const handle = (e) => {
+  const handle = async (e) => {
     e.preventDefault()
     setLoading(true)
-    setTimeout(() => { setLoading(false); setSent(true) }, 1200)
+    setError(false)
+    const data = new FormData(e.target)
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      })
+      if (res.ok) {
+        setSent(true)
+      } else {
+        setError(true)
+      }
+    } catch {
+      setError(true)
+    }
+    setLoading(false)
   }
 
   return (
@@ -209,7 +228,7 @@ export default function Contact() {
                     <div key={f.id}>
                       <label style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.1em', fontFamily: 'Space Grotesk', display: 'block', marginBottom: 8 }}>{f.label}</label>
                       <input
-                        type="text" placeholder={f.placeholder} required
+                        name={f.id} type="text" placeholder={f.placeholder} required
                         style={{
                           width: '100%', padding: '14px 16px',
                           background: 'rgba(255,255,255,0.06)',
@@ -228,6 +247,7 @@ export default function Contact() {
                   <div>
                     <label style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.1em', fontFamily: 'Space Grotesk', display: 'block', marginBottom: 8 }}>Service</label>
                     <select
+                      name="service"
                       style={{
                         width: '100%', padding: '14px 16px',
                         background: 'rgba(255,255,255,0.06)',
@@ -250,7 +270,7 @@ export default function Contact() {
                   <div>
                     <label style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.1em', fontFamily: 'Space Grotesk', display: 'block', marginBottom: 8 }}>Message</label>
                     <textarea
-                      rows={4} required placeholder="Tell me about your project..."
+                      name="message" rows={4} required placeholder="Tell me about your project..."
                       style={{
                         width: '100%', padding: '14px 16px',
                         background: 'rgba(255,255,255,0.06)',
@@ -264,6 +284,12 @@ export default function Contact() {
                       onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
                     />
                   </div>
+
+                  {error && (
+                    <p style={{ color: '#E8480A', fontSize: '0.85rem', fontFamily: 'Inter', margin: 0 }}>
+                      Something went wrong — please try WhatsApp or email directly.
+                    </p>
+                  )}
 
                   <button
                     type="submit" disabled={loading}
