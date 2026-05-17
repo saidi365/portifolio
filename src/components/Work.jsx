@@ -151,6 +151,146 @@ function WebCard({ p, i }) {
   )
 }
 
+function SocialCard({ p, i }) {
+  const [hovered, setHovered] = useState(false)
+
+  const orbs = [
+    { w: 320, h: 320, top: '-20%', left: '60%', color: 'rgba(105,201,208,0.13)', dur: 8 },
+    { w: 200, h: 200, top: '50%',  left: '-5%', color: 'rgba(232,72,10,0.08)',   dur: 11 },
+    { w: 160, h: 160, top: '10%',  left: '40%', color: 'rgba(105,201,208,0.07)', dur: 7 },
+  ]
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.6, delay: i * 0.1 }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        borderRadius: 8, overflow: 'hidden',
+        background: '#0b0b0b',
+        border: `1px solid ${hovered ? 'rgba(105,201,208,0.5)' : 'rgba(255,255,255,0.07)'}`,
+        padding: '40px 44px',
+        transition: 'border-color 0.4s, box-shadow 0.4s',
+        boxShadow: hovered ? '0 0 40px rgba(105,201,208,0.08)' : 'none',
+        display: 'grid',
+        gridTemplateColumns: '1fr auto',
+        gap: 40,
+        alignItems: 'center',
+        position: 'relative',
+      }}
+      className="social-card"
+    >
+      {/* Animated background orbs */}
+      {orbs.map((o, j) => (
+        <motion.div
+          key={j}
+          animate={{ y: [0, -18, 0], x: [0, 10, 0], scale: [1, 1.08, 1] }}
+          transition={{ duration: o.dur, repeat: Infinity, ease: 'easeInOut', delay: j * 1.5 }}
+          style={{
+            position: 'absolute',
+            width: o.w, height: o.h,
+            top: o.top, left: o.left,
+            borderRadius: '50%',
+            background: o.color,
+            filter: 'blur(48px)',
+            pointerEvents: 'none',
+            zIndex: 0,
+          }}
+        />
+      ))}
+
+      {/* Dot grid overlay */}
+      <div style={{
+        position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none',
+        backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.055) 1px, transparent 0)',
+        backgroundSize: '26px 26px',
+      }} />
+
+      {/* Left */}
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+          <motion.div
+            animate={{ boxShadow: ['0 0 0 0 rgba(105,201,208,0.3)', '0 0 0 8px rgba(105,201,208,0)', '0 0 0 0 rgba(105,201,208,0)'] }}
+            transition={{ duration: 2.5, repeat: Infinity }}
+            style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(105,201,208,0.15)', border: '1px solid rgba(105,201,208,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#69C9D0">
+              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.19 8.19 0 0 0 4.79 1.54V6.79a4.85 4.85 0 0 1-1.02-.1z"/>
+            </svg>
+          </motion.div>
+          <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.1em', fontFamily: 'Space Grotesk' }}>{p.platform} · {p.period}</span>
+        </div>
+
+        <h3 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#fff', fontFamily: 'Space Grotesk', letterSpacing: '-0.02em', marginBottom: 12 }}>{p.client}</h3>
+        <p style={{ fontSize: '0.88rem', color: 'rgba(255,255,255,0.45)', lineHeight: 1.8, marginBottom: 28, maxWidth: 480 }}>{p.desc}</p>
+
+        <div style={{ display: 'flex', gap: 12 }}>
+          <motion.a
+            href={p.tiktok} target="_blank" rel="noopener noreferrer"
+            whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: 7,
+              padding: '10px 20px', borderRadius: 4,
+              background: 'rgba(105,201,208,0.12)',
+              border: '1px solid rgba(105,201,208,0.25)',
+              color: '#69C9D0', fontSize: '0.82rem', fontWeight: 600, fontFamily: 'Space Grotesk',
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.19 8.19 0 0 0 4.79 1.54V6.79a4.85 4.85 0 0 1-1.02-.1z"/></svg>
+            TikTok ↗
+          </motion.a>
+          <motion.a
+            href={p.instagram} target="_blank" rel="noopener noreferrer"
+            whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: 7,
+              padding: '10px 20px', borderRadius: 4,
+              background: 'rgba(225,48,108,0.1)',
+              border: '1px solid rgba(225,48,108,0.25)',
+              color: '#E1306C', fontSize: '0.82rem', fontWeight: 600, fontFamily: 'Space Grotesk',
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            Instagram ↗
+          </motion.a>
+        </div>
+      </div>
+
+      {/* Right — animated stats */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 3, minWidth: 240, position: 'relative', zIndex: 1 }}>
+        {p.stats.map((s, j) => (
+          <motion.div
+            key={j}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.3 + j * 0.08 }}
+            whileHover={{ background: 'rgba(105,201,208,0.08)' }}
+            style={{
+              background: j === 0 ? 'rgba(105,201,208,0.07)' : 'rgba(255,255,255,0.03)',
+              border: j === 0 ? '1px solid rgba(105,201,208,0.2)' : '1px solid rgba(255,255,255,0.05)',
+              padding: '20px 16px', textAlign: 'center', borderRadius: 4,
+              transition: 'background 0.3s',
+            }}
+          >
+            <motion.div
+              animate={j === 0 ? { textShadow: ['0 0 0px #69C9D0', '0 0 16px #69C9D0', '0 0 0px #69C9D0'] } : {}}
+              transition={{ duration: 3, repeat: Infinity, delay: 1 }}
+              style={{ fontSize: j === 0 ? '2rem' : '1.3rem', fontWeight: 800, fontFamily: 'Space Grotesk', color: j === 0 ? '#69C9D0' : '#fff', letterSpacing: '-0.03em', lineHeight: 1 }}
+            >
+              {s.value}
+            </motion.div>
+            <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.3)', fontFamily: 'Inter', marginTop: 8, textTransform: 'uppercase', letterSpacing: '0.07em' }}>{s.label}</div>
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
+  )
+}
+
 const designProjects = [
   {
     tag: 'Campaign · 2025',
@@ -241,6 +381,25 @@ const designProjects = [
     tools: ['Illustrator'],
     img: '/images/page_13.jpg',
     size: 'large',
+  },
+]
+
+const socialProjects = [
+  {
+    client: "Abbies Driving School",
+    platform: "TikTok + Instagram",
+    period: "2024 – Present",
+    desc: "Took over a dormant TikTok account at 2K followers and grew it to 15K+ in under 3 months — 100% organic. Managed content strategy, video production, captions and posting schedule across TikTok and Instagram.",
+    stats: [
+      { label: 'Followers gained', value: '13K+' },
+      { label: 'Time taken', value: '3 months' },
+      { label: 'Growth type', value: 'Organic' },
+      { label: 'Starting point', value: '2K' },
+    ],
+    tiktok: 'https://www.tiktok.com/@abbiesdrivingschool',
+    instagram: 'https://www.instagram.com/abbiesdrivingschool/',
+    accent: '#010101',
+    accentLight: '#69C9D0',
   },
 ]
 
@@ -369,6 +528,23 @@ export default function Work() {
           </div>
         </div>
 
+        {/* ── DIGITAL MARKETING ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          style={{ borderBottom: '1px solid var(--border)', paddingBottom: 24, marginBottom: 48 }}
+        >
+          <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', letterSpacing: '-0.03em', marginBottom: 6 }}>Digital Marketing</h2>
+          <p style={{ fontSize: '0.85rem', color: 'var(--muted)' }}>Social media growth & community management</p>
+        </motion.div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 20, marginBottom: 96 }}>
+          {socialProjects.map((p, i) => (
+            <SocialCard key={i} p={p} i={i} />
+          ))}
+        </div>
+
         {/* ── WEB DEVELOPMENT ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -427,6 +603,9 @@ export default function Work() {
         @media (max-width: 640px) {
           .work-grid { columns: 1 !important; }
           .web-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 768px) {
+          .social-card { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>
