@@ -269,7 +269,7 @@ export default function About() {
             </motion.div>
 
             {/* CTA */}
-            <motion.div {...fadeUp(0.46)} style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+            <motion.div {...fadeUp(0.46)}>
               <motion.a
                 href="#contact"
                 whileHover={{ scale: 1.03 }}
@@ -285,29 +285,6 @@ export default function About() {
                 onMouseLeave={e => e.currentTarget.style.background = '#111'}
               >
                 Work with me →
-              </motion.a>
-              <motion.a
-                href="/saidi tembo1.pdf"
-                download="Saidi_Tembo_CV.pdf"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 8,
-                  background: '#fff', color: '#111',
-                  padding: '14px 28px', borderRadius: 3,
-                  fontFamily: 'Space Grotesk', fontWeight: 600, fontSize: '0.9rem',
-                  border: '1.5px solid #E8E8E8', transition: 'all 0.2s',
-                  textDecoration: 'none',
-                }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = '#E8480A'; e.currentTarget.style.color = '#E8480A' }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = '#E8E8E8'; e.currentTarget.style.color = '#111' }}
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                  <polyline points="7 10 12 15 17 10"/>
-                  <line x1="12" y1="15" x2="12" y2="3"/>
-                </svg>
-                Download CV
               </motion.a>
             </motion.div>
           </div>
