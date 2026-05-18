@@ -16,7 +16,7 @@
 
 html { scroll-behavior: smooth; }
 
-@media (pointer: fine) {
+@media (pointer: fine) and (hover: hover) {
   * { cursor: none !important; }
 }
 

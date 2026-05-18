@@ -1,5 +1,9 @@
 import { useEffect, useRef } from 'react'
 
+// Only render on true desktop pointer devices
+const isTouch = typeof window !== 'undefined' &&
+  (window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window)
+
 export default function CustomCursor() {
   const dotRef = useRef(null)
   const ringRef = useRef(null)
@@ -9,8 +13,7 @@ export default function CustomCursor() {
   const hovering = useRef(false)
 
   useEffect(() => {
-    // Skip on touch devices
-    if (window.matchMedia('(pointer: coarse)').matches) return
+    if (isTouch) return
 
     const onMove = (e) => {
       mouse.current = { x: e.clientX, y: e.clientY }
@@ -58,6 +61,8 @@ export default function CustomCursor() {
       cancelAnimationFrame(raf.current)
     }
   }, [])
+
+  if (isTouch) return null
 
   return (
     <>
