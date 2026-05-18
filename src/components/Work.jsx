@@ -365,7 +365,7 @@ const socialProjects = [
     client: "Abbies Driving School",
     platform: "TikTok + Instagram",
     period: "2024 – Present",
-    desc: "Took over a dormant TikTok account at 2K followers and grew it to 15K+ in under 3 months, 100% organic. Managed content strategy, video production, captions and posting schedule across TikTok and Instagram.",
+    desc: "Abbies Driving School, based in East London. Grew their TikTok from 2K to 15K+ followers in under 3 months, 100% organic. Managed content strategy, video production, captions and posting schedule across TikTok and Instagram.",
     stats: [
       { label: 'Followers gained', value: '13K+' },
       { label: 'Time taken', value: '3 months' },
