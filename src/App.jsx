@@ -8,7 +8,6 @@ import Testimonials from './components/Testimonials'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Loader from './components/Loader'
-import CustomCursor from './components/CustomCursor'
 import ScrollProgress from './components/ScrollProgress'
 import BackToTop from './components/BackToTop'
 import { motion } from 'framer-motion'
@@ -24,8 +23,7 @@ export default function App() {
   return (
     <>
       <Loader />
-      <CustomCursor />
-      <ScrollProgress />
+<ScrollProgress />
       <Navbar />
       <Hero />
       <motion.div {...reveal}><Services /></motion.div>
