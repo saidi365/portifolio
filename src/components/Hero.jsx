@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 
 const slides = [
   {
@@ -27,6 +27,10 @@ const slides = [
 
 export default function Hero() {
   const [index, setIndex] = useState(0)
+  const { scrollY } = useScroll()
+  const photoY = useTransform(scrollY, [0, 600], [0, 60])
+  const textY = useTransform(scrollY, [0, 600], [0, 30])
+  const opacity = useTransform(scrollY, [0, 400], [1, 0])
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -58,7 +62,7 @@ export default function Hero() {
       }} className="hero-grid">
 
         {/* LEFT */}
-        <div>
+        <motion.div style={{ y: textY, opacity: opacity }}>
 
           {/* Availability */}
           <motion.div
@@ -175,14 +179,14 @@ export default function Hero() {
             </a>
           </motion.div>
 
-        </div>
+        </motion.div>
 
         {/* RIGHT: Sliding Photo */}
         <motion.div
           initial={{ opacity: 0, x: 24 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, delay: 0.15 }}
-          style={{ position: 'relative' }}
+          style={{ position: 'relative', y: photoY }}
         >
           <div style={{
             borderRadius: 4,
