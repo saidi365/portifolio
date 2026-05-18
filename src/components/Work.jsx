@@ -355,7 +355,7 @@ const designProjects = [
     title: 'XWatch 3WE, XPower 20 Go & XBuds 3',
     desc: 'Product launch creatives for Infinix AIoT accessories — XWatch 3WE smartwatch, XPower 20 Go 20000mAh power bank, and XBuds 3 ENC wireless earbuds. Clean tech visuals built in Illustrator.',
     tools: ['Illustrator'],
-    img: '/images/page_13.jpg',
+    img: '/images/page_15.jpg',
     size: 'large',
   },
 ]
