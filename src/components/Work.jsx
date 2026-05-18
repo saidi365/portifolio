@@ -334,8 +334,8 @@ const designProjects = [
   {
     tag: 'Social Media · 2024',
     client: 'ZICB',
-    title: 'Digital Banking Campaign',
-    desc: 'Three-part series for Zambia Industrial Commercial Bank: business growth, Virtue account and mobile banking.',
+    title: 'ZICB "We Make It Happen" Campaign',
+    desc: 'Three-piece social media series for Zambia Industrial Commercial Bank. Designed visuals for business growth lending, Virtue account opening, and mobile banking — each built around real customer stories.',
     tools: ['Photoshop'],
     img: '/images/page_16.jpg',
     size: 'small',
@@ -343,8 +343,8 @@ const designProjects = [
   {
     tag: 'Social Media · 2022',
     client: 'Infinix',
-    title: 'Secret Santa Campaign',
-    desc: 'Festive Christmas campaign with shopping vouchers and celebrity ambassadors to drive holiday engagement.',
+    title: 'Infinix Secret Santa Campaign',
+    desc: 'Christmas campaign for Infinix Zambia promoting gift giveaways and shopping vouchers. Designed multiple creatives featuring celebrity ambassadors to drive festive engagement and brand excitement.',
     tools: ['Photoshop'],
     img: '/images/page_12.jpg',
     size: 'small',
@@ -352,8 +352,8 @@ const designProjects = [
   {
     tag: 'Social Media · 2025',
     client: 'Infinix AIoT',
-    title: 'XWatch, XPower & XBuds',
-    desc: "Tech-inspired creative assets for Infinix's smart ecosystem across multiple ad formats.",
+    title: 'XWatch 3WE, XPower 20 Go & XBuds 3',
+    desc: 'Product launch creatives for Infinix AIoT accessories — XWatch 3WE smartwatch, XPower 20 Go 20000mAh power bank, and XBuds 3 ENC wireless earbuds. Clean tech visuals built in Illustrator.',
     tools: ['Illustrator'],
     img: '/images/page_13.jpg',
     size: 'large',
@@ -365,7 +365,7 @@ const socialProjects = [
     client: "Abbies Driving School",
     platform: "TikTok + Instagram",
     period: "2024 – Present",
-    desc: "East London-based driving school, previously run and managed by someone on the ground. Took over the social media, grew the TikTok from 2K to 15K+ followers in under 3 months, fully organic. Managed content strategy, video production, captions and posting schedule across TikTok and Instagram.",
+    desc: "Took over a dormant TikTok account at 2K followers and grew it to 15K+ in under 3 months, 100% organic. Managed content strategy, video production, captions and posting schedule across TikTok and Instagram.",
     stats: [
       { label: 'Followers gained', value: '13K+' },
       { label: 'Time taken', value: '3 months' },
