@@ -1,56 +1,93 @@
 import { useEffect, useRef } from 'react'
-import { motion, useMotionValue, useSpring } from 'framer-motion'
 
 export default function CustomCursor() {
   const dotRef = useRef(null)
-
-  const mouseX = useMotionValue(-100)
-  const mouseY = useMotionValue(-100)
-
-  // Ring follows with spring — smooth trailing effect
-  const ringX = useSpring(mouseX, { stiffness: 180, damping: 22, mass: 0.5 })
-  const ringY = useSpring(mouseY, { stiffness: 180, damping: 22, mass: 0.5 })
+  const ringRef = useRef(null)
+  const mouse = useRef({ x: -100, y: -100 })
+  const ring = useRef({ x: -100, y: -100 })
+  const raf = useRef(null)
+  const hovering = useRef(false)
 
   useEffect(() => {
-    // Only on desktop (non-touch)
+    // Skip on touch devices
     if (window.matchMedia('(pointer: coarse)').matches) return
 
-    const move = (e) => {
-      mouseX.set(e.clientX)
-      mouseY.set(e.clientY)
+    const onMove = (e) => {
+      mouse.current = { x: e.clientX, y: e.clientY }
+    }
 
-      // Dot follows instantly via direct DOM style (zero lag)
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate(${e.clientX - 4}px, ${e.clientY - 4}px)`
+    const onOver = (e) => {
+      if (e.target.closest('a, button, input, textarea, select, [role="button"]')) {
+        hovering.current = true
+      } else {
+        hovering.current = false
       }
     }
 
-    window.addEventListener('mousemove', move)
-    return () => window.removeEventListener('mousemove', move)
-  }, [mouseX, mouseY])
+    const tick = () => {
+      // Dot — instant, no lag
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate(${mouse.current.x - 4}px, ${mouse.current.y - 4}px)`
+      }
+
+      // Ring — lerp for smooth trail
+      ring.current.x += (mouse.current.x - ring.current.x) * 0.12
+      ring.current.y += (mouse.current.y - ring.current.y) * 0.12
+
+      if (ringRef.current) {
+        const size = hovering.current ? 52 : 36
+        const offset = size / 2
+        ringRef.current.style.transform = `translate(${ring.current.x - offset}px, ${ring.current.y - offset}px)`
+        ringRef.current.style.width = `${size}px`
+        ringRef.current.style.height = `${size}px`
+        ringRef.current.style.borderColor = hovering.current
+          ? 'rgba(232,72,10,0.8)'
+          : 'rgba(232,72,10,0.4)'
+      }
+
+      raf.current = requestAnimationFrame(tick)
+    }
+
+    window.addEventListener('mousemove', onMove)
+    document.addEventListener('mouseover', onOver)
+    raf.current = requestAnimationFrame(tick)
+
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      document.removeEventListener('mouseover', onOver)
+      cancelAnimationFrame(raf.current)
+    }
+  }, [])
 
   return (
     <>
-      {/* Instant dot — uses direct DOM, no animation lag */}
+      {/* Solid dot — follows instantly */}
       <div
         ref={dotRef}
         style={{
-          position: 'fixed', top: 0, left: 0,
-          width: 8, height: 8, borderRadius: '50%',
+          position: 'fixed',
+          top: 0, left: 0,
+          width: 8, height: 8,
+          borderRadius: '50%',
           background: '#E8480A',
-          pointerEvents: 'none', zIndex: 99999,
+          pointerEvents: 'none',
+          zIndex: 99999,
           willChange: 'transform',
         }}
       />
-      {/* Spring ring — smooth trailing */}
-      <motion.div
+      {/* Ring — smooth trail */}
+      <div
+        ref={ringRef}
         style={{
-          position: 'fixed', top: -20, left: -20,
-          x: ringX, y: ringY,
-          width: 40, height: 40, borderRadius: '50%',
-          border: '1.5px solid rgba(232,72,10,0.45)',
-          pointerEvents: 'none', zIndex: 99998,
-          willChange: 'transform',
+          position: 'fixed',
+          top: 0, left: 0,
+          width: 36, height: 36,
+          borderRadius: '50%',
+          border: '1.5px solid rgba(232,72,10,0.4)',
+          pointerEvents: 'none',
+          zIndex: 99998,
+          willChange: 'transform, width, height',
+          transition: 'width 0.2s ease, height 0.2s ease, border-color 0.2s ease',
         }}
       />
     </>
