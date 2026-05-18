@@ -337,7 +337,7 @@ const designProjects = [
     title: 'ZICB "We Make It Happen" Campaign',
     desc: 'Three-piece social media series for Zambia Industrial Commercial Bank. Designed visuals for business growth lending, Virtue account opening, and mobile banking — each built around real customer stories.',
     tools: ['Photoshop'],
-    img: '/images/page_16.jpg',
+    img: '/images/page_15.jpg',
     size: 'small',
   },
   {
@@ -346,7 +346,7 @@ const designProjects = [
     title: 'Infinix Secret Santa Campaign',
     desc: 'Christmas campaign for Infinix Zambia promoting gift giveaways and shopping vouchers. Designed multiple creatives featuring celebrity ambassadors to drive festive engagement and brand excitement.',
     tools: ['Photoshop'],
-    img: '/images/page_12.jpg',
+    img: '/images/page_11.jpg',
     size: 'small',
   },
   {
@@ -355,7 +355,7 @@ const designProjects = [
     title: 'XWatch 3WE, XPower 20 Go & XBuds 3',
     desc: 'Product launch creatives for Infinix AIoT accessories — XWatch 3WE smartwatch, XPower 20 Go 20000mAh power bank, and XBuds 3 ENC wireless earbuds. Clean tech visuals built in Illustrator.',
     tools: ['Illustrator'],
-    img: '/images/page_15.jpg',
+    img: '/images/page_12.jpg',
     size: 'large',
   },
 ]
@@ -494,13 +494,29 @@ export default function Work() {
           ))}
         </div>
 
-        {/* Brands row */}
-        <div style={{ marginTop: 56, paddingTop: 40, borderTop: '1px solid var(--border)', marginBottom: 96 }}>
-          <p style={{ fontSize: '0.72rem', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 16 }}>Brands</p>
-          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-            {['TECNO', 'MTN', 'Infinix', 'Mukuru', 'ZICB', 'Egatee', 'itel', 'betPawa', 'Infratel'].map(b => (
-              <span key={b} style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--mid)', border: '1px solid var(--border)', padding: '7px 14px', borderRadius: 2, fontFamily: 'Space Grotesk' }}>{b}</span>
-            ))}
+        {/* Brands marquee */}
+        <div style={{ marginTop: 56, paddingTop: 40, borderTop: '1px solid var(--border)', marginBottom: 96, overflow: 'hidden' }}>
+          <p style={{ fontSize: '0.72rem', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 24, fontFamily: 'Space Grotesk' }}>Brands</p>
+          <div style={{ position: 'relative', overflow: 'hidden' }}>
+            {/* Fade edges */}
+            <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 80, background: 'linear-gradient(to right, var(--bg), transparent)', zIndex: 2, pointerEvents: 'none' }} />
+            <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: 80, background: 'linear-gradient(to left, var(--bg), transparent)', zIndex: 2, pointerEvents: 'none' }} />
+            <motion.div
+              animate={{ x: ['0%', '-50%'] }}
+              transition={{ duration: 18, repeat: Infinity, ease: 'linear' }}
+              style={{ display: 'flex', gap: 0, width: 'max-content' }}
+            >
+              {[...['TECNO', 'MTN', 'Infinix', 'Mukuru', 'ZICB', 'Egatee', 'itel', 'betPawa', 'Infratel'], ...['TECNO', 'MTN', 'Infinix', 'Mukuru', 'ZICB', 'Egatee', 'itel', 'betPawa', 'Infratel']].map((b, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 0, padding: '0 32px' }}>
+                  <span style={{
+                    fontSize: '1rem', fontWeight: 700,
+                    color: 'var(--mid)', fontFamily: 'Space Grotesk',
+                    letterSpacing: '-0.01em', whiteSpace: 'nowrap',
+                  }}>{b}</span>
+                  <span style={{ marginLeft: 32, width: 5, height: 5, borderRadius: '50%', background: '#E8480A', display: 'inline-block', flexShrink: 0 }} />
+                </div>
+              ))}
+            </motion.div>
           </div>
         </div>
 
