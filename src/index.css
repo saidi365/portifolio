@@ -16,9 +16,6 @@
 
 html { scroll-behavior: smooth; }
 
-@media (pointer: fine) {
-  *, *::before, *::after { cursor: none !important; }
-}
 
 body {
   font-family: 'Inter', sans-serif;
