@@ -1,77 +1,56 @@
-import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { useEffect, useRef } from 'react'
+import { motion, useMotionValue, useSpring } from 'framer-motion'
 
 export default function CustomCursor() {
-  const [pos, setPos] = useState({ x: -100, y: -100 })
-  const [clicked, setClicked] = useState(false)
-  const [hovered, setHovered] = useState(false)
-  const [visible, setVisible] = useState(false)
+  const dotRef = useRef(null)
+
+  const mouseX = useMotionValue(-100)
+  const mouseY = useMotionValue(-100)
+
+  // Ring follows with spring — smooth trailing effect
+  const ringX = useSpring(mouseX, { stiffness: 180, damping: 22, mass: 0.5 })
+  const ringY = useSpring(mouseY, { stiffness: 180, damping: 22, mass: 0.5 })
 
   useEffect(() => {
-    // Only show on non-touch devices
+    // Only on desktop (non-touch)
     if (window.matchMedia('(pointer: coarse)').matches) return
 
     const move = (e) => {
-      setPos({ x: e.clientX, y: e.clientY })
-      if (!visible) setVisible(true)
-    }
-    const down = () => setClicked(true)
-    const up = () => setClicked(false)
+      mouseX.set(e.clientX)
+      mouseY.set(e.clientY)
 
-    const onEnter = (e) => {
-      if (e.target.closest('a, button, [role="button"], input, textarea, select')) {
-        setHovered(true)
+      // Dot follows instantly via direct DOM style (zero lag)
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate(${e.clientX - 4}px, ${e.clientY - 4}px)`
       }
     }
-    const onLeave = () => setHovered(false)
 
     window.addEventListener('mousemove', move)
-    window.addEventListener('mousedown', down)
-    window.addEventListener('mouseup', up)
-    document.addEventListener('mouseover', onEnter)
-    document.addEventListener('mouseout', onLeave)
-
-    return () => {
-      window.removeEventListener('mousemove', move)
-      window.removeEventListener('mousedown', down)
-      window.removeEventListener('mouseup', up)
-      document.removeEventListener('mouseover', onEnter)
-      document.removeEventListener('mouseout', onLeave)
-    }
-  }, [visible])
-
-  if (!visible) return null
+    return () => window.removeEventListener('mousemove', move)
+  }, [mouseX, mouseY])
 
   return (
     <>
-      {/* Dot */}
-      <motion.div
-        animate={{ x: pos.x - 4, y: pos.y - 4, scale: clicked ? 0.6 : 1 }}
-        transition={{ type: 'tween', duration: 0.01 }}
+      {/* Instant dot — uses direct DOM, no animation lag */}
+      <div
+        ref={dotRef}
         style={{
           position: 'fixed', top: 0, left: 0,
           width: 8, height: 8, borderRadius: '50%',
           background: '#E8480A',
           pointerEvents: 'none', zIndex: 99999,
-          mixBlendMode: 'normal',
+          willChange: 'transform',
         }}
       />
-      {/* Ring */}
+      {/* Spring ring — smooth trailing */}
       <motion.div
-        animate={{
-          x: pos.x - (hovered ? 28 : 20),
-          y: pos.y - (hovered ? 28 : 20),
-          width: hovered ? 56 : 40,
-          height: hovered ? 56 : 40,
-          scale: clicked ? 0.75 : 1,
-          borderColor: hovered ? 'rgba(232,72,10,0.8)' : 'rgba(232,72,10,0.4)',
-        }}
-        transition={{ type: 'spring', stiffness: 200, damping: 20 }}
         style={{
-          position: 'fixed', top: 0, left: 0,
-          borderRadius: '50%',
-          border: '1.5px solid rgba(232,72,10,0.4)',
+          position: 'fixed', top: -20, left: -20,
+          x: ringX, y: ringY,
+          width: 40, height: 40, borderRadius: '50%',
+          border: '1.5px solid rgba(232,72,10,0.45)',
           pointerEvents: 'none', zIndex: 99998,
+          willChange: 'transform',
         }}
       />
     </>

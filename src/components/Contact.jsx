@@ -287,7 +287,7 @@ export default function Contact() {
 
                   {error && (
                     <p style={{ color: '#E8480A', fontSize: '0.85rem', fontFamily: 'Inter', margin: 0 }}>
-                      Something went wrong — please try WhatsApp or email directly.
+                      Something went wrong. Please try WhatsApp or email directly.
                     </p>
                   )}
 

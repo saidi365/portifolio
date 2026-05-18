@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 
 const testimonials = [
   {
-    quote: 'Saidi redesigned our entire brand identity and social media presence. The results were immediate — our engagement tripled and customers started recognising us everywhere.',
+    quote: 'Saidi redesigned our entire brand identity and social media presence. The results were immediate, our engagement tripled and customers started recognising us everywhere.',
     name: 'Bwalya M.',
     role: 'Business Owner · Lusaka',
     avatar: 'B',
@@ -16,7 +16,7 @@ const testimonials = [
     color: '#2563EB',
   },
   {
-    quote: 'He took our TikTok from 2K to over 15K followers in just 3 months — all organic. His content strategy is sharp and he delivers without excuses.',
+    quote: 'He took our TikTok from 2K to over 15K followers in just 3 months, all organic. His content strategy is sharp and he delivers without excuses.',
     name: 'Abbie D.',
     role: 'Owner · Abbies Driving School',
     avatar: 'A',
