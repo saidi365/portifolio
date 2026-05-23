@@ -353,7 +353,7 @@ const designProjects = [
     tag: 'Social Media · 2025',
     client: 'Infinix AIoT',
     title: 'XWatch 3WE, XPower 20 Go & XBuds 3',
-    desc: 'Product launch creatives for Infinix AIoT accessories — XWatch 3WE smartwatch, XPower 20 Go 20000mAh power bank, and XBuds 3 ENC wireless earbuds. Clean tech visuals built in Illustrator.',
+    desc: 'Product launch creatives for Infinix AIoT accessories XWatch 3WE smartwatch, XPower 20 Go 20000mAh power bank, and XBuds 3 ENC wireless earbuds. Clean tech visuals built in Illustrator.',
     tools: ['Illustrator'],
     img: '/images/page_12.jpg',
     size: 'large',
@@ -422,6 +422,7 @@ const webProjects = [
     title: 'Fuel Marker Tracking System',
     desc: 'Fuel marker tracking platform monitoring compliance across distribution and retail points in Zambia. Currently in active development.',
     tools: ['React', 'Django', 'SQL'],
+    link: 'https://petroz-system-production.up.railway.app/',
     wip: true,
   },
 ]
